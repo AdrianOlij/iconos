@@ -1,4 +1,4 @@
-package com.alkemy.icons.iconos.entity;
+package com.alkemy.icons.iconos.entities;
 
 
 import lombok.Getter;

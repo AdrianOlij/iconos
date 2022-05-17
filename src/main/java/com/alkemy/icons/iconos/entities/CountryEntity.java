@@ -1,4 +1,4 @@
-package com.alkemy.icons.iconos.entity;
+package com.alkemy.icons.iconos.entities;
 
 
 import lombok.Getter;
@@ -26,12 +26,13 @@ public class CountryEntity {
 
     private Long area; //metros cuadrados
 
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)              //
     @JoinColumn(name = "continente_id", insertable = false, updatable = false)  // Busqueda de información
     private ContinentEntity continent;                                          //
 
     @Column(name = "continent_id", nullable = false)                            // Edición
-    private Long continenteId;
+    private Long continenteId;                                                  //
 
     @ManyToMany(
             cascade = {
