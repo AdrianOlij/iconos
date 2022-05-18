@@ -7,13 +7,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "continent")
-@Getter
+
 @Setter
+@Getter
 public class ContinentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-
     private Long id;
     private String image;
     private String denomination;
