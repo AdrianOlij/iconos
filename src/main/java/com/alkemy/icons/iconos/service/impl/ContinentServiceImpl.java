@@ -21,9 +21,9 @@ public class ContinentServiceImpl implements ContinentService {
     @PostMapping
     public ContinentDTO save(ContinentDTO dto){
 
-        ContinentEntity entity = continentMapper.continentDTO2Entity(dto);
-        continentRepository.save(entity);
-        System.out.println("GUARDAR CONTINENTE");
-        return dto;
+        ContinentEntity entity = continentMapper.continentDTO2Entity(dto); // Lo convierto en Entity
+        ContinentEntity entitySaved = continentRepository.save(entity); // Lo guardo
+        ContinentDTO result = continentMapper.continentEntity2DTO(entitySaved); // Lo convierto a DTO
+        return result; // Lo devuelvo
     }
 }
