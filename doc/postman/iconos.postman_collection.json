@@ -32,6 +32,16 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "continents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
