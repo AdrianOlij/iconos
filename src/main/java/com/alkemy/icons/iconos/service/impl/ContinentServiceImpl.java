@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Service
 public class ContinentServiceImpl implements ContinentService {
 
@@ -25,5 +27,11 @@ public class ContinentServiceImpl implements ContinentService {
         ContinentEntity entitySaved = continentRepository.save(entity); // Lo guardo
         ContinentDTO result = continentMapper.continentEntity2DTO(entitySaved); // Lo convierto a DTO
         return result; // Lo devuelvo
+    }
+
+    public List<ContinentDTO> getAllContinents() {
+        List<ContinentEntity> entities = continentRepository.findAll();
+        List<ContinentDTO> results = continentMapper.continentEntityList2DTOList(entities);
+        return results;
     }
 }
