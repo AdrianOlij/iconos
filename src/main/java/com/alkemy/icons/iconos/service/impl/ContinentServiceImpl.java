@@ -14,24 +14,26 @@ import java.util.List;
 @Service
 public class ContinentServiceImpl implements ContinentService {
 
-    @Autowired
     private ContinentMapper continentMapper;
-
-    @Autowired
     private ContinentRepository continentRepository;
+
+    public ContinentServiceImpl(ContinentMapper continentMapper, ContinentRepository continentRepository) {
+        this.continentMapper = continentMapper;
+        this.continentRepository = continentRepository;
+    }
 
     @PostMapping
     public ContinentDTO save(ContinentDTO dto){
 
-        ContinentEntity entity = continentMapper.continentDTO2Entity(dto); // Lo convierto en Entity
-        ContinentEntity entitySaved = continentRepository.save(entity); // Lo guardo
-        ContinentDTO result = continentMapper.continentEntity2DTO(entitySaved); // Lo convierto a DTO
+        ContinentEntity entity = this.continentMapper.continentDTO2Entity(dto); // Lo convierto en Entity
+        ContinentEntity entitySaved = this.continentRepository.save(entity); // Lo guardo
+        ContinentDTO result = this.continentMapper.continentEntity2DTO(entitySaved); // Lo convierto a DTO
         return result; // Lo devuelvo
     }
 
     public List<ContinentDTO> getAllContinents() {
-        List<ContinentEntity> entities = continentRepository.findAll();
-        List<ContinentDTO> results = continentMapper.continentEntityList2DTOList(entities);
+        List<ContinentEntity> entities = this.continentRepository.findAll();
+        List<ContinentDTO> results = this.continentMapper.continentEntityList2DTOList(entities);
         return results;
     }
 }

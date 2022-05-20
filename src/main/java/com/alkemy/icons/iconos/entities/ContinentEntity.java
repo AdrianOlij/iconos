@@ -5,11 +5,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "continent")
-
 @Setter
 @Getter
+@Entity
+@Table(name = "continent")
 public class ContinentEntity {
 
     @Id
