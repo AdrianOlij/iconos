@@ -14,8 +14,8 @@ import java.util.List;
 @Service
 public class ContinentServiceImpl implements ContinentService {
 
-    private ContinentMapper continentMapper;
-    private ContinentRepository continentRepository;
+    private final ContinentMapper continentMapper;
+    private final ContinentRepository continentRepository;
 
     public ContinentServiceImpl(ContinentMapper continentMapper, ContinentRepository continentRepository) {
         this.continentMapper = continentMapper;

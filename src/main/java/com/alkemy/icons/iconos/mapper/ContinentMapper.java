@@ -13,8 +13,8 @@ public class ContinentMapper {
     public ContinentEntity continentDTO2Entity(ContinentDTO dto){
         ContinentEntity continentEntity = new ContinentEntity(); // Instancio el objeto al q quiero convertir el DTO
 
-        continentEntity.setImage(dto.getImage()); /* cargo el parametro al continentEntity desde el parametro correlativo
-                                                     del ContinentDTO */
+        continentEntity.setImage(dto.getImage()); /* cargo el atributo al Entity desde el atributo correlativo
+                                                     del DTO */
 
         continentEntity.setDenomination(dto.getDenomination()); // idem anterior
 

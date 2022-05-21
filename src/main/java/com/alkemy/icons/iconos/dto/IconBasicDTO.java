@@ -1,4 +1,4 @@
-/*package com.alkemy.icons.iconos.dto;
+package com.alkemy.icons.iconos.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,4 +11,3 @@ public class IconBasicDTO {
     private String iconImage;
     private String iconDenomination;
 }
-*/

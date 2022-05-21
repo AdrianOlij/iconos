@@ -17,14 +17,14 @@ public class CountryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-
+    private Long id;
     private String image;
     private String denomination;
 
     @Column(name = "amount_population")
     private Long population;
 
-    private Long area; //metros cuadrados
+    private Double area; //metros cuadrados
 
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)              //
@@ -32,7 +32,7 @@ public class CountryEntity {
     private ContinentEntity continent;                                          //
 
     @Column(name = "continent_id", nullable = false)                            // Edición
-    private Long continenteId;                                                  //
+    private Long continentId;                                                  //
 
     @ManyToMany(
             cascade = {

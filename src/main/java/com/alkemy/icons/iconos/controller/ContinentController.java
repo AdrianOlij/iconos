@@ -14,19 +14,22 @@ import java.util.List;
 @RequestMapping("continents")
 public class ContinentController {
 
-    @Autowired
-    private ContinentService continentService; //Inyectamos la dependencia de la capa service
+    private final ContinentService continentService;
+
+    public ContinentController(ContinentService continentService) { //Inyectamos la dependencia de la capa service
+        this.continentService = continentService;
+    }
 
     @GetMapping
     public ResponseEntity<List<ContinentDTO>> getAll(){ //este getAll es un metodo del JpaRepository
-        List<ContinentDTO> continents = continentService.getAllContinents(); // implementamos el getAllCotinents del service
+        List<ContinentDTO> continents = this.continentService.getAllContinents(); // implementamos el getAllCotinents del service
         return ResponseEntity.ok().body(continents);
         /* Request para mostrar lista de todos los continentes */
     }
 
     @PostMapping
     public ResponseEntity<ContinentDTO> save(@RequestBody ContinentDTO continent) { //setteamos la creacion de continent del tipo ContinentDTO
-        ContinentDTO saveContinent = continentService.save(continent);              //creamos el continente en formato DTO
+        ContinentDTO saveContinent = this.continentService.save(continent);              //creamos el continente en formato DTO
         return ResponseEntity.status(HttpStatus.CREATED).body(saveContinent);       //201, confirmacion del request
     }
 }
