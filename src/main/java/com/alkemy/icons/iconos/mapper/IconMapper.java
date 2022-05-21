@@ -2,6 +2,7 @@ package com.alkemy.icons.iconos.mapper;
 
 import com.alkemy.icons.iconos.dto.CountryDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
+import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
 import org.apache.tomcat.jni.Local;
 
@@ -27,6 +28,7 @@ public class IconMapper {
         );
         iconEntity.setHeight(dto.getHeight());
         iconEntity.setHistory(dto.getHistory());
+
         return iconEntity;
     }
 
@@ -39,8 +41,7 @@ public class IconMapper {
         iconDTO.setHeight(entity.getHeight());
         iconDTO.setHistory(entity.getHistory());
         if (loadCountries){
-            List<CountryDTO> countriesDTO = this.countryMapper.countryEntityList2DTOList(entity.getCountries(),
-                    loadCountries false);
+            List<CountryDTO> countriesDTO = this.countryMapper.countryEntityList2DTOList(entity.getCountries(), false);
             iconDTO.setCountries(countriesDTO);
         }
         return iconDTO;
@@ -52,10 +53,19 @@ public class IconMapper {
         return date;
     }
 
-    private List<IconEntity> iconDTOList2EntityList(List<IconDTO> dtos, boolean loadCountries){
+    private List<IconEntity> iconDTOList2EntityList(List<IconDTO> dtos, boolean loadIcons){
         List<IconEntity> iconEntities = new ArrayList<>();
-        //TODO:  falta terminar esto
+        for (IconDTO dto : dtos){
+            iconEntities.add(this.iconDTO2Entity(dto);
+        }
+        return iconEntities;
     }
 
+    public List<IconDTO> iconEntityList2DTOList(List<IconEntity> entities, boolean loadCountries){
+        List<IconDTO> dtos = new ArrayList<>();
+        for (IconEntity entity : entities){
+            dtos.add(this.iconEntity2DTO(entity, loadCountries));
+        }
+        return dtos;
     //TODO: falta terminar el IconEntityList2DTOList
 }

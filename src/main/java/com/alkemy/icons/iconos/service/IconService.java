@@ -4,7 +4,7 @@ import com.alkemy.icons.iconos.dto.IconDTO;
 
 public interface IconService {
 
-    IconDTO save(IconDTO);
+    IconDTO save(IconDTO iconDTO);
 
     void delete(Long id);
 }

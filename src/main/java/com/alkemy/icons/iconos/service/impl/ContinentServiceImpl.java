@@ -22,7 +22,6 @@ public class ContinentServiceImpl implements ContinentService {
         this.continentRepository = continentRepository;
     }
 
-    @PostMapping
     public ContinentDTO save(ContinentDTO dto){
 
         ContinentEntity entity = this.continentMapper.continentDTO2Entity(dto); // Lo convierto en Entity

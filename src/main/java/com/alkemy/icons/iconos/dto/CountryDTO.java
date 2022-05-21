@@ -15,4 +15,5 @@ public class CountryDTO {
     private Long population;
     private Double area;
     private List<IconDTO> icons;
+    private List<ContinentDTO> continent;
 }
