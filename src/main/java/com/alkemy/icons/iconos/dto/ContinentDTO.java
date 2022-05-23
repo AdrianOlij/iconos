@@ -11,5 +11,5 @@ public class ContinentDTO {
     private Long id;
     private String image;
     private String denomination;
-    private List<CountryDTO> countries;
+    //private List<CountryDTO> countries;
 }

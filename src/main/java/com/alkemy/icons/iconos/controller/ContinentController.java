@@ -2,8 +2,6 @@ package com.alkemy.icons.iconos.controller;
 
 import com.alkemy.icons.iconos.dto.ContinentDTO;
 import com.alkemy.icons.iconos.service.ContinentService;
-import com.alkemy.icons.iconos.service.impl.ContinentServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

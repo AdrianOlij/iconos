@@ -4,13 +4,15 @@ import com.alkemy.icons.iconos.dto.CountryDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
 import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class CountryMapper {
 
-    private IconMapper iconMapper;
+    private final IconMapper iconMapper;
 
     public CountryMapper(IconMapper iconMapper) {
         this.iconMapper = iconMapper;
@@ -23,9 +25,9 @@ public class CountryMapper {
         countryDTO.setDenominationCountry(entity.getDenomination());
         countryDTO.setPopulation(entity.getPopulation());
         countryDTO.setArea(entity.getArea());
-        countryDTO.setContinents(entity.getContinentId());
+//        countryDTO.setContinent(entity.getContinentId());
         if (loadIcons){
-            List<IconDTO> iconDTOS = this.iconMapper.iconEntityList2DTOList(entity.getIcons(), loadIcons false);
+            List<IconDTO> iconDTOS = this.iconMapper.iconEntityList2DTOList(entity.getIcons(), false);
             countryDTO.setIcons(iconDTOS);
         }
         return countryDTO;

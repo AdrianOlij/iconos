@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,7 +27,7 @@ public class CountryEntity {
 
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)              //
-    @JoinColumn(name = "continente_id", insertable = false, updatable = false)  // Busqueda de información
+    @JoinColumn(name = "continent_id", insertable = false, updatable = false)  // Busqueda de información
     private ContinentEntity continent;                                          //
 
     @Column(name = "continent_id", nullable = false)                            // Edición
@@ -42,5 +42,5 @@ public class CountryEntity {
             name = "icon_country",
             joinColumns = @JoinColumn(name = "country_id"),
             inverseJoinColumns = @JoinColumn(name = "icon_id"))
-    private Set<IconEntity> icons = new HashSet<>();
+    private List<IconEntity> icons = new ArrayList<>();
 }

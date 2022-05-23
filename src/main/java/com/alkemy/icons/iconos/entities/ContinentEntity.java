@@ -19,7 +19,7 @@ public class ContinentEntity {
     private String image;
     private String denomination;
 
-    @OneToMany(mappedBy = "continents", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "continent", cascade = CascadeType.ALL)
     private List<CountryEntity> countries = new ArrayList<>();
 
 }
