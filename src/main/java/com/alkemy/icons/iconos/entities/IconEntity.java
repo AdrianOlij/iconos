@@ -14,15 +14,15 @@ import java.util.List;
 
 @Getter
 @Setter
-@SQLDelete(sql = "UPDATE icon SET deleted = true WHERE id=?") /*digo q en realidad no se borre sino q updatee el atributo
-                                                               "deleted" a true en el ID que se paso */
+//digo q en realidad no se borre sino q updatee el atributo "deleted" a true en el ID que se paso */
+@SQLDelete(sql = "UPDATE icon SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false") // Con esto diferencia los que fueron borrados de los q no
 @Entity
 @Table(name ="icon")
 public class IconEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String image;
     private String denomination;
@@ -34,7 +34,7 @@ public class IconEntity {
     private Long height;
     private String history;
 
-    private Boolean delete = Boolean.FALSE; // se agrega una columna para hacer el soft delete donde 1 es borrado y 0 no.
+    private Boolean deleted = Boolean.FALSE; // se agrega una columna para hacer el soft delete donde 1 es borrado y 0 no.
 
     @ManyToMany(mappedBy = "icons", cascade = CascadeType.ALL)
     private List<CountryEntity> countries = new ArrayList<>();
