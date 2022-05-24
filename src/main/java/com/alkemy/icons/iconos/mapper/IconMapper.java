@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class IconMapper {
@@ -73,8 +74,15 @@ public class IconMapper {
         //TODO: falta terminar el IconEntityList2DTOList
     }
 
+    public IconBasicDTO iconEntity2BasicDTO(IconEntity entity){
+        return new IconBasicDTO(entity.getId(), entity.getImage(), entity.getDenomination());
+    }
     public List<IconBasicDTO> iconEntitySet2BasicDTOList(Collection<IconEntity> entities){
-        List<IconBasicDTO> dtos = new ArrayList<>();
+        return entities.stream()
+                .map(iconEntity -> iconEntity2BasicDTO(iconEntity))
+                .collect(Collectors.toList());
+
+    /*    List<IconBasicDTO> dtos = new ArrayList<>();
         IconBasicDTO basicDto;
         for (IconEntity entity : entities){
             basicDto = new IconBasicDTO();
@@ -83,6 +91,6 @@ public class IconMapper {
             basicDto.setIconDenomination(entity.getDenomination());
             dtos.add(basicDto);
         }
-        return dtos;
+        return dtos;*/
     }
 }
