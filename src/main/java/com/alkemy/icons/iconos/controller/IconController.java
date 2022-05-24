@@ -20,8 +20,8 @@ public class IconController {
     }
 
     @GetMapping
-    public ResponseEntity<List<IconBasicDTO>> getAll(){
-        List<IconBasicDTO> icons = this.iconService.getAllIcons();
+    public ResponseEntity<List<IconDTO>> getAll(){
+        List<IconDTO> icons = this.iconService.getAllIcons();
         return ResponseEntity.ok().body(icons);
     }
 
