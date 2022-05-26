@@ -19,16 +19,11 @@ public class IconController {
         this.iconService = iconService;
     }
 
-<<<<<<< Updated upstream
-    @GetMapping
-    public ResponseEntity<List<IconBasicDTO>> getAll(){
-        List<IconBasicDTO> icons = this.iconService.getAllIcons();
-=======
+
     //Devuelve Lista de iconos con todos los detalles
     @GetMapping({"/detail"})
     public ResponseEntity<List<IconDTO>> getAllIcons(){
         List<IconDTO> icons = this.iconService.getAllIcons();
->>>>>>> Stashed changes
         return ResponseEntity.ok().body(icons);
     }
 
@@ -39,14 +34,12 @@ public class IconController {
         return ResponseEntity.ok().body(icons);
     }
 
-    //Borrado soft de Icono especifico por id
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> sDelete(@PathVariable Long id){
         this.iconService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    //Crea un icono
     @PostMapping
     public ResponseEntity<IconDTO> save(@RequestBody IconDTO icon) {
         IconDTO saveIcon = this.iconService.save(icon);

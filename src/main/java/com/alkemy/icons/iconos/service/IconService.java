@@ -11,13 +11,9 @@ public interface IconService {
 
     void delete(Long id);
 
-<<<<<<< Updated upstream
-    List<IconBasicDTO> getAllIcons();
-=======
     List<IconDTO> getAllIcons();
 
     List<IconBasicDTO> getAllBasicIcons();
 
     IconDTO edit(Long id, IconDTO iconDTO);
->>>>>>> Stashed changes
 }

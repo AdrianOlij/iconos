@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class IconMapper {
@@ -25,7 +26,7 @@ public class IconMapper {
     }
 
     // DTO a Entity
-    public IconEntity iconDTO2Entity(IconDTO dto){
+    public IconEntity iconDTO2Entity(IconDTO dto) {
         IconEntity iconEntity = new IconEntity();
         iconEntity.setImage(dto.getIconImage());
         iconEntity.setDenomination(dto.getIconDenomination());
@@ -35,8 +36,9 @@ public class IconMapper {
 
         return iconEntity;
     }
+
     // Entity a DTO
-    public IconDTO iconEntity2DTO(IconEntity entity, boolean loadCountries){
+    public IconDTO iconEntity2DTO(IconEntity entity, boolean loadCountries) {
         IconDTO iconDTO = new IconDTO();
         iconDTO.setId(entity.getId());
         iconDTO.setIconImage(entity.getImage());
@@ -44,7 +46,7 @@ public class IconMapper {
         iconDTO.setCreationDate(entity.getCreationDate().toString());
         iconDTO.setHeight(entity.getHeight());
         iconDTO.setHistory(entity.getHistory());
-        if (loadCountries){
+        if (loadCountries) {
             List<CountryDTO> countriesDTO = this.countryMapper.countryEntityList2DTOList(entity.getCountries(), false);
             iconDTO.setCountries(countriesDTO);
         }
@@ -52,16 +54,16 @@ public class IconMapper {
     }
 
     // Paso String a LocalDate para fecha de creación
-    public LocalDate string2LocalDate(String stringDate){
+    public LocalDate string2LocalDate(String stringDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate date = LocalDate.parse(stringDate, formatter);
         return date;
     }
 
     //DTO List a Entity List
-    public List<IconEntity> iconDTOList2EntityList(List<IconDTO> dtos, Boolean loadIcons){
+    public List<IconEntity> iconDTOList2EntityList(List<IconDTO> dtos, Boolean loadIcons) {
         List<IconEntity> iconEntities = new ArrayList<>();
-        for (IconDTO dto : dtos){
+        for (IconDTO dto : dtos) {
             iconEntities.add(this.iconDTO2Entity(dto));
         }
         return iconEntities;
@@ -76,26 +78,13 @@ public class IconMapper {
         return dtos;
     }
 
-<<<<<<< Updated upstream
-    public List<IconBasicDTO> iconEntitySet2BasicDTOList(Collection<IconEntity> entities){
-        List<IconBasicDTO> dtos = new ArrayList<>();
-        IconBasicDTO basicDto;
-        for (IconEntity entity : entities){
-            basicDto = new IconBasicDTO();
-            basicDto.setId(entity.getId());
-            basicDto.setIconImage(entity.getImage());
-            basicDto.setIconDenomination(entity.getDenomination());
-            dtos.add(basicDto);
-        }
-        return dtos;
-=======
     // Entity a Basic DTO
-    public IconBasicDTO iconEntity2BasicDTO(IconEntity entity){
+    public IconBasicDTO iconEntity2BasicDTO(IconEntity entity) {
         return new IconBasicDTO(entity.getId(), entity.getImage(), entity.getDenomination());
     }
 
     // Entity List a Basic DTO List
-    public List<IconBasicDTO> iconEntityList2BasicDTOList(Collection<IconEntity> entities){
+    public List<IconBasicDTO> iconEntityList2BasicDTOList(Collection<IconEntity> entities) {
         return entities.stream()
                 .map(iconEntity -> iconEntity2BasicDTO(iconEntity))
                 .collect(Collectors.toList());
@@ -111,6 +100,5 @@ public class IconMapper {
                 dtos.add(basicDto);
             }
             return dtos;*/
->>>>>>> Stashed changes
     }
 }

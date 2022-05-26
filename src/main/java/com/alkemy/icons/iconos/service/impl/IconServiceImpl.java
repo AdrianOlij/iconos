@@ -10,11 +10,8 @@ import com.alkemy.icons.iconos.service.IconService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-<<<<<<< Updated upstream
-=======
-import java.util.Optional;
 import java.util.stream.Collectors;
->>>>>>> Stashed changes
+import java.util.Optional;
 
 @Service
 public class IconServiceImpl implements IconService {
@@ -33,16 +30,12 @@ public class IconServiceImpl implements IconService {
         return this.iconMapper.iconEntity2DTO(entitySaved, false); // Lo convierto a DTO
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         this.iconRepository.deleteById(id);
     }
 
-    public List<IconBasicDTO> getAllIcons() {
+    public List<IconBasicDTO> getAllBasicIcons() {
         List<IconEntity> entities = this.iconRepository.findAll();
-<<<<<<< Updated upstream
-        List<IconBasicDTO> results = this.iconMapper.iconEntitySet2BasicDTOList(entities);
-        return results;
-=======
         return this.iconMapper.iconEntityList2BasicDTOList(entities);
     }
 
@@ -61,6 +54,5 @@ public class IconServiceImpl implements IconService {
         return this.iconRepository.findAll().stream()
                 .map(iconEntity -> this.iconMapper.iconEntity2DTO(iconEntity, false))
                 .collect(Collectors.toList());
->>>>>>> Stashed changes
     }
 }

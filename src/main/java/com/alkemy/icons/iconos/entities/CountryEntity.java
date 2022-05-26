@@ -15,7 +15,7 @@ import java.util.List;
 public class CountryEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String image;
     private String denomination;
