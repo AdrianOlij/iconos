@@ -6,6 +6,11 @@ import java.util.List;
 
 @Getter
 @Setter
+<<<<<<< Updated upstream
+=======
+@JsonIgnoreProperties
+@JsonInclude(JsonInclude.Include.NON_NULL)
+>>>>>>> Stashed changes
 public class IconDTO {
 
     private Long id;

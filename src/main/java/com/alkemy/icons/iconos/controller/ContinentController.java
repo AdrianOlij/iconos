@@ -18,16 +18,22 @@ public class ContinentController {
         this.continentService = continentService;
     }
 
+    // Request para mostrar lista de todos los continentes
     @GetMapping
-    public ResponseEntity<List<ContinentDTO>> getAll(){ //este getAll es un metodo del JpaRepository
-        List<ContinentDTO> continents = this.continentService.getAllContinents(); // implementamos el getAllCotinents del service
+    //este getAll es un metodo del JpaRepository
+    public ResponseEntity<List<ContinentDTO>> getAll() {
+        // implementamos el getAllCotinents del service
+        List<ContinentDTO> continents = this.continentService.getAllContinents();
         return ResponseEntity.ok().body(continents);
-        /* Request para mostrar lista de todos los continentes */
+
     }
 
     @PostMapping
-    public ResponseEntity<ContinentDTO> save(@RequestBody ContinentDTO continent) { //setteamos la creacion de continent del tipo ContinentDTO
-        ContinentDTO saveContinent = this.continentService.save(continent);              //creamos el continente en formato DTO
-        return ResponseEntity.status(HttpStatus.CREATED).body(saveContinent);       //201, confirmacion del request
+    //setteamos la creacion de continent del tipo ContinentDTO
+    public ResponseEntity<ContinentDTO> save(@RequestBody ContinentDTO continent) {
+        //creamos el continente en formato DTO
+        ContinentDTO saveContinent = this.continentService.save(continent);
+        //201, confirmacion del request
+        return ResponseEntity.status(HttpStatus.CREATED).body(saveContinent);
     }
 }
