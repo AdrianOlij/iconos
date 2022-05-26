@@ -16,7 +16,8 @@ import java.util.List;
 @Setter
 //digo q en realidad no se borre sino q updatee el atributo "deleted" a true en el ID que se paso */
 @SQLDelete(sql = "UPDATE icon SET deleted = true WHERE id=?")
-@Where(clause = "deleted=false") // Con esto diferencia los que fueron borrados de los q no
+// Con esto diferencia los que fueron borrados de los q no
+@Where(clause = "deleted=false")
 @Entity
 @Table(name ="icon")
 public class IconEntity {
@@ -33,9 +34,9 @@ public class IconEntity {
 
     private Long height;
     private String history;
-
-    private Boolean deleted = Boolean.FALSE; // se agrega una columna para hacer el soft delete donde 1 es borrado y 0 no.
+    private boolean deleted = Boolean.FALSE; // se agrega una columna para hacer el soft delete donde 1 es borrado y 0 no.
 
     @ManyToMany(mappedBy = "icons", cascade = CascadeType.ALL)
     private List<CountryEntity> countries = new ArrayList<>();
+
 }

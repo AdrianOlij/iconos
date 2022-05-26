@@ -2,10 +2,13 @@ package com.alkemy.icons.iconos.service.impl;
 
 import com.alkemy.icons.iconos.dto.IconBasicDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
+import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
 import com.alkemy.icons.iconos.exception.NotFound;
 import com.alkemy.icons.iconos.mapper.IconMapper;
+import com.alkemy.icons.iconos.repository.CountryRepository;
 import com.alkemy.icons.iconos.repository.IconRepository;
+import com.alkemy.icons.iconos.service.CountryService;
 import com.alkemy.icons.iconos.service.IconService;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +21,14 @@ public class IconServiceImpl implements IconService {
 
     private final IconMapper iconMapper;
     private final IconRepository iconRepository;
+    private final CountryService countryService;
+    private final CountryRepository countryRepository;
 
-    public IconServiceImpl(IconMapper iconMapper, IconRepository iconRepository) {
+    public IconServiceImpl(IconMapper iconMapper, IconRepository iconRepository, CountryService countryService, CountryRepository countryRepository) {
         this.iconMapper = iconMapper;
         this.iconRepository = iconRepository;
+        this.countryService = countryService;
+        this.countryRepository = countryRepository;
     }
 
     public IconDTO save(IconDTO dto) {

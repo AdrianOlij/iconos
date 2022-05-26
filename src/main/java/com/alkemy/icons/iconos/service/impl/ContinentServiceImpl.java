@@ -24,8 +24,7 @@ public class ContinentServiceImpl implements ContinentService {
 
         ContinentEntity entity = this.continentMapper.continentDTO2Entity(dto); // Lo convierto en Entity
         ContinentEntity entitySaved = this.continentRepository.save(entity); // Lo guardo
-        ContinentDTO result = this.continentMapper.continentEntity2DTO(entitySaved); // Lo convierto a DTO
-        return result; // Lo devuelvo
+        return this.continentMapper.continentEntity2DTO(entitySaved); // Lo devuelvo
     }
 
     public List<ContinentDTO> getAllContinents() {

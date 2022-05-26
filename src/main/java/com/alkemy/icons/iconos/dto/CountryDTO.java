@@ -10,8 +10,8 @@ import java.util.List;
 public class CountryDTO {
 
     private Long id;
-    private String imageCountry;
-    private String denominationCountry;
+    private String image;
+    private String denomination;
     private Long population;
     private Double area;
     private List<IconDTO> icons;

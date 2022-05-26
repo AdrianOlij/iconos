@@ -16,4 +16,5 @@ public interface IconService {
     List<IconBasicDTO> getAllBasicIcons();
 
     IconDTO edit(Long id, IconDTO iconDTO);
+
 }
