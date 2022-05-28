@@ -38,12 +38,12 @@ public class IconController {
         return ResponseEntity.ok().body(icons);
     }
 
-   /* // Devielve un icono detallado
+    // Devielve un icono detallado
     @GetMapping("/{id}")
-    public ResponseEntity<IconDTO> getIconDetail(@PathVariable Long id){
+    public ResponseEntity<IconDTO> getAnIcon(@PathVariable Long id){
         IconDTO getIconDTO = this.iconService.getAnIcon(id);
         return ResponseEntity.ok().body(getIconDTO);
-    }*/
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> sDelete(@PathVariable Long id) {
