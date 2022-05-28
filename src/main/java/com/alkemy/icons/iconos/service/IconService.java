@@ -17,4 +17,6 @@ public interface IconService {
 
     IconDTO edit(Long id, IconDTO iconDTO);
 
+   /* IconDTO getAnIcon(Long id, IconDTO iconDTO);*/
+
 }

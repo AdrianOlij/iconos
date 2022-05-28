@@ -2,6 +2,7 @@ package com.alkemy.icons.iconos.controller;
 
 import com.alkemy.icons.iconos.dto.IconBasicDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
+import com.alkemy.icons.iconos.repository.IconRepository;
 import com.alkemy.icons.iconos.service.IconService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,11 @@ import java.util.List;
 public class IconController {
 
     private final IconService iconService;
+    private final IconRepository iconRepository;
 
-    public IconController(IconService iconService) {
+    public IconController(IconService iconService, IconRepository iconRepository) {
         this.iconService = iconService;
+        this.iconRepository = iconRepository;
     }
 
 
@@ -35,11 +38,12 @@ public class IconController {
         return ResponseEntity.ok().body(icons);
     }
 
-    // Devielve un icono detallado
+   /* // Devielve un icono detallado
     @GetMapping("/{id}")
-    public ResponseEntity<IconDTO> iconDetail(@PathVariable Long id){
-        IconDTO
-    }
+    public ResponseEntity<IconDTO> getIconDetail(@PathVariable Long id){
+        IconDTO getIconDTO = this.iconService.getAnIcon(id);
+        return ResponseEntity.ok().body(getIconDTO);
+    }*/
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> sDelete(@PathVariable Long id) {

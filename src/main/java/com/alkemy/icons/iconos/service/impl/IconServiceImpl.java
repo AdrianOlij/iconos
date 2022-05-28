@@ -49,7 +49,7 @@ public class IconServiceImpl implements IconService {
     public IconDTO edit(Long id, IconDTO iconDTO) {
         Optional<IconEntity> entity = iconRepository.findById(id);
         if(!entity.isPresent()){
-            throw new NotFound("No se encontro el pais");
+            throw new NotFound("No se encontro el Icono");
         }
         IconEntity iconEntity = this.iconMapper.iconDTO2Entity(iconDTO);
         IconEntity iconSaved = this.iconRepository.save(iconEntity);
@@ -61,5 +61,9 @@ public class IconServiceImpl implements IconService {
         return this.iconRepository.findAll().stream()
                 .map(iconEntity -> this.iconMapper.iconEntity2DTO(iconEntity, false))
                 .collect(Collectors.toList());
+    }
+
+    public IconDTO getAnIcon(Long id) {
+        return this.iconMapper.iconEntity2DTO(iconRepository.getById(id), true);
     }
 }
