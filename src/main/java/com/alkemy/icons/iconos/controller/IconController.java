@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.*;
 import java.util.List;
 
 @RestController
@@ -22,20 +23,26 @@ public class IconController {
 
     //Devuelve Lista de iconos con todos los detalles
     @GetMapping({"/detail"})
-    public ResponseEntity<List<IconDTO>> getAllIcons(){
+    public ResponseEntity<List<IconDTO>> getAllIcons() {
         List<IconDTO> icons = this.iconService.getAllIcons();
         return ResponseEntity.ok().body(icons);
     }
 
     //Devuelve lista de iconos con detalles acotados
     @GetMapping
-    public ResponseEntity<List<IconBasicDTO>> getAllBasicIcons(){
+    public ResponseEntity<List<IconBasicDTO>> getAllBasicIcons() {
         List<IconBasicDTO> icons = this.iconService.getAllBasicIcons();
         return ResponseEntity.ok().body(icons);
     }
 
+    // Devielve un icono detallado
+    @GetMapping("/{id}")
+    public ResponseEntity<IconDTO> iconDetail(@PathVariable Long id){
+        IconDTO
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> sDelete(@PathVariable Long id){
+    public ResponseEntity<Void> sDelete(@PathVariable Long id) {
         this.iconService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
@@ -48,7 +55,7 @@ public class IconController {
 
     //Sobreescribe un icono especifico
     @PutMapping("/{id}")
-    public ResponseEntity<IconDTO> edit(@PathVariable Long id, @RequestBody IconDTO iconDTO){
+    public ResponseEntity<IconDTO> edit(@PathVariable Long id, @RequestBody IconDTO iconDTO) {
         IconDTO editIcon = this.iconService.edit(id, iconDTO);
         return ResponseEntity.ok(editIcon);
     }

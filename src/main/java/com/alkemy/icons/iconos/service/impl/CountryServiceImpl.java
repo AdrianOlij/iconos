@@ -9,6 +9,7 @@ import com.alkemy.icons.iconos.service.CountryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CountryServiceImpl implements CountryService {
@@ -27,9 +28,12 @@ public class CountryServiceImpl implements CountryService {
     }
 
     public List<CountryDTO> getAllCountries(){
-        List<CountryEntity> entities = this.countryRepository.findAll();
-        return this.countryMapper.countryEntityList2DTOList(entities, false);
+        return this.countryRepository.findAll().stream()
+                .map(countryEntity -> this.countryMapper.countryEntityList2BasicDTOList(countryEntity))
+                .collect(Collectors.toList());
     }
+/*    List<CountryEntity> entities = this.countryRepository.findAll();
+        return this.countryMapper.countryEntityList2DTOList(entities, false); */
 
     public CountryDTO save(CountryDTO countryDTO){
         CountryEntity entity = this.countryMapper.countryDTO2Entity(countryDTO, false);
