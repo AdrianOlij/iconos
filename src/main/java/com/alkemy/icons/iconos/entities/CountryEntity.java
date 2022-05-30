@@ -43,4 +43,12 @@ public class CountryEntity {
             joinColumns = @JoinColumn(name = "country_id"),
             inverseJoinColumns = @JoinColumn(name = "icon_id"))
     private List<IconEntity> icons = new ArrayList<>();
+
+    public void addIcon(IconEntity iconEntity) {
+        this.icons.add(iconEntity);
+    }
+
+    public void removeIcon(IconEntity iconEntity){
+        this.icons.remove(iconEntity);
+    }
 }

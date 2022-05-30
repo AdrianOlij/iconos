@@ -24,13 +24,13 @@ public class IconMapper {
     }
 
     // DTO a Entity
-    public IconEntity iconDTO2Entity(IconDTO dto) {
+    public IconEntity iconDTO2Entity(IconDTO iconDTO) {
         IconEntity iconEntity = new IconEntity();
-        iconEntity.setImage(dto.getIconImage());
-        iconEntity.setDenomination(dto.getIconDenomination());
-        iconEntity.setCreationDate(this.string2LocalDate(dto.getCreationDate()));
-        iconEntity.setHeight(dto.getHeight());
-        iconEntity.setHistory(dto.getHistory());
+        iconEntity.setImage(iconDTO.getIconImage());
+        iconEntity.setDenomination(iconDTO.getIconDenomination());
+        iconEntity.setCreationDate(this.string2LocalDate(iconDTO.getCreationDate()));
+        iconEntity.setHeight(iconDTO.getHeight());
+        iconEntity.setHistory(iconDTO.getHistory());
         return iconEntity;
     }
 

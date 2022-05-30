@@ -27,7 +27,7 @@ public class CountryController {
         List<CountryBasicDTO> countries = this.countryService.getAllBasicCountries();
         return ResponseEntity.ok().body(countries);
     }
-
+/*
     @GetMapping({"/detail"})
     public ResponseEntity<List<CountryDTO>> getAllCountries(){
         List<CountryDTO> countryDTOS = this.countryService.getAllCountries();
@@ -45,4 +45,17 @@ public class CountryController {
         CountryDTO saveCountry = this.countryService.save(country);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveCountry);
     }
+
+    @PostMapping("/{id}/icon/{idIcon}")
+    public ResponseEntity<Void> addIcon(@PathVariable Long id, @PathVariable Long idIcon){
+        this.countryService.addIcon(id, idIcon);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/{id}/icon/{idIcon}")
+    public ResponseEntity<Void> removeIcon(@PathVariable Long id, @PathVariable Long idIcon){
+        this.countryService.removeIcon(id, idIcon);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+*/
 }

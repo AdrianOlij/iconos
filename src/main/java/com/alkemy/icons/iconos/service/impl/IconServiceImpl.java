@@ -81,7 +81,7 @@ public class IconServiceImpl implements IconService{
     @Transactional
     @Override
     public IconDTO getAnIcon(Long id) {
-        return this.iconMapper.iconEntity2DTO(iconRepository.getById(id), true);
+        return this.iconMapper.iconEntity2DTO(iconRepository.getById(id), false);
     }
 
     @Transactional
@@ -103,5 +103,10 @@ public class IconServiceImpl implements IconService{
         CountryEntity countryEntity = this.countryService.getEntityById(idCountry);
         entity.removeCountry(countryEntity);
         this.iconRepository.save(entity);
+    }
+
+    @Override
+    public IconEntity getEntityById(Long idIcon) {
+        return this.iconRepository.getById(idIcon);
     }
 }

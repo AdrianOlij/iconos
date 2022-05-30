@@ -17,4 +17,8 @@ public interface CountryService {
     CountryEntity getEntityById(Long idCountry);
 
     CountryDTO getACountry(Long id);
+
+    void addIcon(Long id, Long idIcon);
+
+    void removeIcon(Long id, Long idIcon);
 }
