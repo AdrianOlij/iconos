@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.*;
 import java.util.List;
 
 @RestController
@@ -59,8 +58,20 @@ public class IconController {
 
     //Sobreescribe un icono especifico
     @PutMapping("/{id}")
-    public ResponseEntity<IconDTO> edit(@PathVariable Long id, @RequestBody IconDTO iconDTO) {
+    public ResponseEntity<IconDTO> update(@PathVariable Long id, @RequestBody IconDTO iconDTO) {
         IconDTO editIcon = this.iconService.edit(id, iconDTO);
         return ResponseEntity.ok(editIcon);
+    }
+
+    @PostMapping("/{id}/country/{idCountry}")
+    public ResponseEntity<Void> addCountry(@PathVariable Long id, @PathVariable Long idCountry){
+        this.iconService.addCountry(id, idCountry);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @DeleteMapping("/{id}/country/{idCountry}")
+    public ResponseEntity<Void> removeCountry(@PathVariable Long id, @PathVariable Long idCountry){
+        this.iconService.removeCountry(id, idCountry);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

@@ -19,4 +19,7 @@ public interface IconService {
 
     IconDTO getAnIcon(Long id);
 
+    void addCountry(Long id, Long idCountry);
+
+    void removeCountry(Long id, Long idCountry);
 }

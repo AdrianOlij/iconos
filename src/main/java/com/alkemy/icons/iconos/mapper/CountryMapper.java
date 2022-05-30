@@ -28,7 +28,7 @@ public class CountryMapper {
         countryDTO.setDenomination(entity.getDenomination());
         countryDTO.setPopulation(entity.getPopulation());
         countryDTO.setArea(entity.getArea());
-//        countryDTO.setContinent(entity.getContinentId());
+        countryDTO.setContinentId(entity.getContinentId());
         if (loadIcons) {
             List<IconDTO> iconDTOS = this.iconMapper.iconEntityList2DTOList(entity.getIcons(), false);
             countryDTO.setIcons(iconDTOS);
@@ -76,6 +76,4 @@ public class CountryMapper {
                 .map(countryEntity -> countryEntity2BasicDTO(countryEntity))
                 .collect(Collectors.toList());
     }
-
-
 }
