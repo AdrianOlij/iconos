@@ -15,11 +15,9 @@ import java.util.List;
 public class IconController {
 
     private final IconService iconService;
-    private final IconRepository iconRepository;
 
     public IconController(IconService iconService, IconRepository iconRepository) {
         this.iconService = iconService;
-        this.iconRepository = iconRepository;
     }
 
 

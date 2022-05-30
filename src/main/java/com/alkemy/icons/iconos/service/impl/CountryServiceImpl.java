@@ -42,12 +42,18 @@ public class CountryServiceImpl implements CountryService {
     public CountryDTO save(CountryDTO countryDTO){
         CountryEntity entity = this.countryMapper.countryDTO2Entity(countryDTO, false);
         CountryEntity saveEntity = this.countryRepository.save(entity);
-        return this.countryMapper.countryEntity2DTO(saveEntity, true);
+        return this.countryMapper.countryEntity2DTO(saveEntity, false);
     }
 
     @Transactional
     @Override
     public CountryEntity getEntityById(Long idCountry) {
         return this.countryRepository.getById(idCountry);
+    }
+
+    @Transactional
+    @Override
+    public CountryDTO getACountry(Long id) {
+        return this.countryMapper.countryEntity2DTO(countryRepository.getById(id), false);
     }
 }

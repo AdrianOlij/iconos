@@ -31,7 +31,6 @@ public class IconMapper {
         iconEntity.setCreationDate(this.string2LocalDate(dto.getCreationDate()));
         iconEntity.setHeight(dto.getHeight());
         iconEntity.setHistory(dto.getHistory());
-
         return iconEntity;
     }
 
