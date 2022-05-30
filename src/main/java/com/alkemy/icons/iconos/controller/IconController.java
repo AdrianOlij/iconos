@@ -37,19 +37,21 @@ public class IconController {
         return ResponseEntity.ok().body(icons);
     }
 
-    // Devielve un icono detallado
+    // Devuelve un icono detallado
     @GetMapping("/{id}")
     public ResponseEntity<IconDTO> getAnIcon(@PathVariable Long id){
         IconDTO getIconDTO = this.iconService.getAnIcon(id);
         return ResponseEntity.ok().body(getIconDTO);
     }
 
+    // Borra un icono por id
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> sDelete(@PathVariable Long id) {
         this.iconService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    // Agrega un Icono
     @PostMapping
     public ResponseEntity<IconDTO> save(@RequestBody IconDTO icon) {
         IconDTO saveIcon = this.iconService.save(icon);
@@ -63,12 +65,14 @@ public class IconController {
         return ResponseEntity.ok(editIcon);
     }
 
+    //Agrega un pais a un icono
     @PostMapping("/{id}/country/{idCountry}")
     public ResponseEntity<Void> addCountry(@PathVariable Long id, @PathVariable Long idCountry){
         this.iconService.addCountry(id, idCountry);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    //Borra un pais a un icono
     @DeleteMapping("/{id}/country/{idCountry}")
     public ResponseEntity<Void> removeCountry(@PathVariable Long id, @PathVariable Long idCountry){
         this.iconService.removeCountry(id, idCountry);

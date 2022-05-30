@@ -15,4 +15,5 @@ public interface CountryService {
     CountryDTO save(CountryDTO countryDTO);
 
     CountryEntity getEntityById(Long idCountry);
+
 }
