@@ -5,6 +5,7 @@ import com.alkemy.icons.iconos.dto.CountryDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
 import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -30,13 +31,13 @@ public class CountryMapper {
         countryDTO.setArea(entity.getArea());
         countryDTO.setContinentId(entity.getContinentId());
         if (loadIcons) {
-            List<IconDTO> iconDTOS = this.iconMapper.iconEntityList2DTOList(entity.getIcons(), false);
+            List<IconDTO> iconDTOS = this.iconMapper.iconEntityList2DTOList(entity.getIcons(), true);
             countryDTO.setIcons(iconDTOS);
         }
         return countryDTO;
     }
 
-    public CountryEntity countryDTO2Entity(CountryDTO dto, Boolean loadIcons) {
+    public CountryEntity countryDTO2Entity(CountryDTO dto, boolean loadIcons) {
         CountryEntity countryEntity = new CountryEntity();
         countryEntity.setImage(dto.getImage());
         countryEntity.setDenomination(dto.getDenomination());
@@ -44,7 +45,7 @@ public class CountryMapper {
         countryEntity.setArea(dto.getArea());
         countryEntity.setContinentId(dto.getContinentId());
         if (loadIcons) {
-            List<IconEntity> iconEntities = this.iconMapper.iconDTOList2EntityList(dto.getIcons(), false);
+            List<IconEntity> iconEntities = this.iconMapper.iconDTOList2EntityList(dto.getIcons());
             countryEntity.setIcons(iconEntities);
         }
         return countryEntity;
@@ -58,10 +59,10 @@ public class CountryMapper {
         return dtos;
     }
 
-    public List<CountryEntity> countryDTOList2EntityList(List<CountryDTO> dtos, boolean loadIcons) {
+    public List<CountryEntity> countryDTOList2EntityList(List<CountryDTO> dtos) {
         List<CountryEntity> entities = new ArrayList<>();
         for (CountryDTO dto : dtos) {
-            entities.add(this.countryDTO2Entity(dto, loadIcons));
+            entities.add(this.countryDTO2Entity(dto, true));
         }
         return entities;
     }

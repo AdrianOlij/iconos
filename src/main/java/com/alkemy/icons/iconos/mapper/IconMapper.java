@@ -3,6 +3,7 @@ package com.alkemy.icons.iconos.mapper;
 import com.alkemy.icons.iconos.dto.CountryDTO;
 import com.alkemy.icons.iconos.dto.IconBasicDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
+import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
@@ -24,13 +25,17 @@ public class IconMapper {
     }
 
     // DTO a Entity
-    public IconEntity iconDTO2Entity(IconDTO iconDTO) {
+    public IconEntity iconDTO2Entity(IconDTO iconDTO, boolean loadCountries) {
         IconEntity iconEntity = new IconEntity();
         iconEntity.setImage(iconDTO.getIconImage());
         iconEntity.setDenomination(iconDTO.getIconDenomination());
         iconEntity.setCreationDate(this.string2LocalDate(iconDTO.getCreationDate()));
         iconEntity.setHeight(iconDTO.getHeight());
         iconEntity.setHistory(iconDTO.getHistory());
+        if (loadCountries) {
+            List<CountryEntity> countriesEntity = this.countryMapper.countryDTOList2EntityList(iconDTO.getCountries());
+            iconEntity.setCountries(countriesEntity);
+        }
         return iconEntity;
     }
 
@@ -58,10 +63,10 @@ public class IconMapper {
     }
 
     //DTO List a Entity List
-    public List<IconEntity> iconDTOList2EntityList(List<IconDTO> dtos, Boolean loadIcons) {
+    public List<IconEntity> iconDTOList2EntityList(List<IconDTO> dtos) {
         List<IconEntity> iconEntities = new ArrayList<>();
         for (IconDTO dto : dtos) {
-            iconEntities.add(this.iconDTO2Entity(dto));
+            iconEntities.add(this.iconDTO2Entity(dto, false));
         }
         return iconEntities;
     }

@@ -21,4 +21,6 @@ public interface CountryService {
     void addIcon(Long id, Long idIcon);
 
     void removeIcon(Long id, Long idIcon);
+
+    void delete(Long id);
 }

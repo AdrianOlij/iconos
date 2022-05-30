@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CountryServiceImpl implements CountryService {
@@ -44,9 +43,9 @@ public class CountryServiceImpl implements CountryService {
     @Transactional
     @Override
     public CountryDTO save(CountryDTO countryDTO){
-        CountryEntity entity = this.countryMapper.countryDTO2Entity(countryDTO, false);
+        CountryEntity entity = this.countryMapper.countryDTO2Entity(countryDTO, true);
         CountryEntity saveEntity = this.countryRepository.save(entity);
-        return this.countryMapper.countryEntity2DTO(saveEntity, false);
+        return this.countryMapper.countryEntity2DTO(saveEntity, true);
     }
 
     @Transactional
@@ -58,7 +57,7 @@ public class CountryServiceImpl implements CountryService {
     @Transactional
     @Override
     public CountryDTO getACountry(Long id) {
-        return this.countryMapper.countryEntity2DTO(countryRepository.getById(id), false);
+        return this.countryMapper.countryEntity2DTO(countryRepository.getById(id), true);
     }
 
     @Transactional
@@ -79,8 +78,11 @@ public class CountryServiceImpl implements CountryService {
         IconEntity iconEntity = this.iconService.getEntityById(idIcon);
         countryEntity.removeIcon(iconEntity);
         this.countryRepository.save(countryEntity);
-
     }
 
-
+    @Transactional
+    @Override
+    public void delete(Long id) {
+        this.countryRepository.deleteById(id);
+    }
 }

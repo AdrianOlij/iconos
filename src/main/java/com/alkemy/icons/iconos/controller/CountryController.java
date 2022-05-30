@@ -27,7 +27,7 @@ public class CountryController {
         List<CountryBasicDTO> countries = this.countryService.getAllBasicCountries();
         return ResponseEntity.ok().body(countries);
     }
-/*
+
     @GetMapping({"/detail"})
     public ResponseEntity<List<CountryDTO>> getAllCountries(){
         List<CountryDTO> countryDTOS = this.countryService.getAllCountries();
@@ -57,5 +57,11 @@ public class CountryController {
         this.countryService.removeIcon(id, idIcon);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
-*/
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> sDelete(@PathVariable Long id){
+        this.countryService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
 }

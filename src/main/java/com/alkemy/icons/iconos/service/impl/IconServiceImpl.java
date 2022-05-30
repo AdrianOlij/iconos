@@ -5,9 +5,7 @@ import com.alkemy.icons.iconos.dto.IconDTO;
 import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
 import com.alkemy.icons.iconos.exception.NotFound;
-import com.alkemy.icons.iconos.mapper.CountryMapper;
 import com.alkemy.icons.iconos.mapper.IconMapper;
-import com.alkemy.icons.iconos.repository.CountryRepository;
 import com.alkemy.icons.iconos.repository.IconRepository;
 import com.alkemy.icons.iconos.service.CountryService;
 import com.alkemy.icons.iconos.service.IconService;
@@ -23,25 +21,20 @@ public class IconServiceImpl implements IconService{
 
     private final IconMapper iconMapper;
     private final IconRepository iconRepository;
-    private final CountryMapper countryMapper;
-    private final CountryRepository countryRepository;
     private final CountryService countryService;
 
-    public IconServiceImpl(IconMapper iconMapper, IconRepository iconRepository, CountryMapper countryMapper,
-                           CountryRepository countryRepository, CountryService countryService) {
+    public IconServiceImpl(IconMapper iconMapper, IconRepository iconRepository, CountryService countryService) {
         this.iconMapper = iconMapper;
         this.iconRepository = iconRepository;
-        this.countryMapper = countryMapper;
-        this.countryRepository = countryRepository;
         this.countryService = countryService;
     }
 
     @Transactional
     @Override
     public IconDTO save(IconDTO dto) {
-        IconEntity entity = this.iconMapper.iconDTO2Entity(dto); // Lo convierto en Entity
+        IconEntity entity = this.iconMapper.iconDTO2Entity(dto, true);
         IconEntity entitySaved = this.iconRepository.save(entity); // Lo guardo
-        return this.iconMapper.iconEntity2DTO(entitySaved, false); // Lo convierto a DTO
+        return this.iconMapper.iconEntity2DTO(entitySaved, true);
     }
 
     @Transactional
@@ -64,9 +57,9 @@ public class IconServiceImpl implements IconService{
         if(!entity.isPresent()){
             throw new NotFound("No se encontro el Icono");
         }
-        IconEntity iconEntity = this.iconMapper.iconDTO2Entity(iconDTO);
+        IconEntity iconEntity = this.iconMapper.iconDTO2Entity(iconDTO, true);
         IconEntity iconSaved = this.iconRepository.save(iconEntity);
-        return this.iconMapper.iconEntity2DTO(iconEntity, false);
+        return this.iconMapper.iconEntity2DTO(iconEntity, true);
 
     }
 
@@ -81,7 +74,7 @@ public class IconServiceImpl implements IconService{
     @Transactional
     @Override
     public IconDTO getAnIcon(Long id) {
-        return this.iconMapper.iconEntity2DTO(iconRepository.getById(id), false);
+        return this.iconMapper.iconEntity2DTO(iconRepository.getById(id), true);
     }
 
     @Transactional
