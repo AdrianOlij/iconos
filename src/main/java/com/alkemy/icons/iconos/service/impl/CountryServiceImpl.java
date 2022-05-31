@@ -6,8 +6,8 @@ import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
 import com.alkemy.icons.iconos.mapper.CountryMapper;
 import com.alkemy.icons.iconos.repository.CountryRepository;
+import com.alkemy.icons.iconos.repository.IconRepository;
 import com.alkemy.icons.iconos.service.CountryService;
-import com.alkemy.icons.iconos.service.IconService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,12 +18,13 @@ public class CountryServiceImpl implements CountryService {
 
     private final CountryMapper countryMapper;
     private final CountryRepository countryRepository;
-    private final IconService iconService;
+    private final IconRepository iconRepository;
 
-    public CountryServiceImpl(CountryMapper countryMapper, CountryRepository countryRepository, IconService iconService) {
+    public CountryServiceImpl(CountryMapper countryMapper, CountryRepository countryRepository,
+                              IconRepository iconRepository) {
         this.countryMapper = countryMapper;
         this.countryRepository = countryRepository;
-        this.iconService = iconService;
+        this.iconRepository = iconRepository;
     }
 
     @Transactional
@@ -35,23 +36,17 @@ public class CountryServiceImpl implements CountryService {
 
     @Transactional
     @Override
-    public List<CountryDTO> getAllCountries(){
+    public List<CountryDTO> getAllCountries() {
         List<CountryEntity> entities = this.countryRepository.findAll();
         return this.countryMapper.countryEntityList2DTOList(entities, false);
     }
 
     @Transactional
     @Override
-    public CountryDTO save(CountryDTO countryDTO){
-        CountryEntity entity = this.countryMapper.countryDTO2Entity(countryDTO, true);
+    public CountryDTO save(CountryDTO countryDTO) {
+        CountryEntity entity = this.countryMapper.countryDTO2Entity(countryDTO, false);
         CountryEntity saveEntity = this.countryRepository.save(entity);
-        return this.countryMapper.countryEntity2DTO(saveEntity, true);
-    }
-
-    @Transactional
-    @Override
-    public CountryEntity getEntityById(Long idCountry) {
-        return this.countryRepository.getById(idCountry);
+        return this.countryMapper.countryEntity2DTO(saveEntity, false);
     }
 
     @Transactional
@@ -65,7 +60,7 @@ public class CountryServiceImpl implements CountryService {
     public void addIcon(Long id, Long idIcon) {
         CountryEntity countryEntity = this.countryRepository.getById(id);
         countryEntity.getIcons().size();
-        IconEntity iconEntity = this.iconService.getEntityById(idIcon);
+        IconEntity iconEntity = this.iconRepository.getById(idIcon);
         countryEntity.addIcon(iconEntity);
         this.countryRepository.save(countryEntity);
     }
@@ -75,7 +70,7 @@ public class CountryServiceImpl implements CountryService {
     public void removeIcon(Long id, Long idIcon) {
         CountryEntity countryEntity = this.countryRepository.getById(id);
         countryEntity.getIcons().size();
-        IconEntity iconEntity = this.iconService.getEntityById(idIcon);
+        IconEntity iconEntity = this.iconRepository.getById(idIcon);
         countryEntity.removeIcon(iconEntity);
         this.countryRepository.save(countryEntity);
     }

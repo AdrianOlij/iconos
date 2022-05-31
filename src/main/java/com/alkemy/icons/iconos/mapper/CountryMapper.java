@@ -31,7 +31,7 @@ public class CountryMapper {
         countryDTO.setArea(entity.getArea());
         countryDTO.setContinentId(entity.getContinentId());
         if (loadIcons) {
-            List<IconDTO> iconDTOS = this.iconMapper.iconEntityList2DTOList(entity.getIcons(), true);
+            List<IconDTO> iconDTOS = this.iconMapper.iconEntityList2DTOList(entity.getIcons(), false);
             countryDTO.setIcons(iconDTOS);
         }
         return countryDTO;
@@ -62,7 +62,7 @@ public class CountryMapper {
     public List<CountryEntity> countryDTOList2EntityList(List<CountryDTO> dtos) {
         List<CountryEntity> entities = new ArrayList<>();
         for (CountryDTO dto : dtos) {
-            entities.add(this.countryDTO2Entity(dto, true));
+            entities.add(this.countryDTO2Entity(dto, false));
         }
         return entities;
     }

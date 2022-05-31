@@ -23,6 +23,4 @@ public interface IconService {
     void addCountry(Long id, Long idCountry);
 
     void removeCountry(Long id, Long idCountry);
-
-    IconEntity getEntityById(Long idIcon);
 }
