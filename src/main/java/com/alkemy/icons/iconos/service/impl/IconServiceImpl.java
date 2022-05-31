@@ -68,14 +68,15 @@ public class IconServiceImpl implements IconService{
     @Override
     public List<IconDTO> getAllIcons() {
         return this.iconRepository.findAll().stream()
-                .map(iconEntity -> this.iconMapper.iconEntity2DTO(iconEntity, false))
+                .map(iconEntity -> this.iconMapper.iconEntity2DTO(iconEntity, true))
                 .collect(Collectors.toList());
     }
 
     @Transactional
     @Override
     public IconDTO getAnIcon(Long id) {
-        return this.iconMapper.iconEntity2DTO(iconRepository.getById(id), false);
+
+        return this.iconMapper.iconEntity2DTO(iconRepository.getById(id), true);
     }
 
     @Transactional
