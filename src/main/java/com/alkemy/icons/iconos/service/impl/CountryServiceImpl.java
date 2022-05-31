@@ -59,7 +59,6 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public void addIcon(Long id, Long idIcon) {
         CountryEntity countryEntity = this.countryRepository.getById(id);
-        countryEntity.getIcons().size();
         IconEntity iconEntity = this.iconRepository.getById(idIcon);
         countryEntity.addIcon(iconEntity);
         this.countryRepository.save(countryEntity);
@@ -69,7 +68,6 @@ public class CountryServiceImpl implements CountryService {
     @Override
     public void removeIcon(Long id, Long idIcon) {
         CountryEntity countryEntity = this.countryRepository.getById(id);
-        countryEntity.getIcons().size();
         IconEntity iconEntity = this.iconRepository.getById(idIcon);
         countryEntity.removeIcon(iconEntity);
         this.countryRepository.save(countryEntity);

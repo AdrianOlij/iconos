@@ -35,4 +35,10 @@ public class ContinentServiceImpl implements ContinentService {
         List<ContinentEntity> entities = this.continentRepository.findAll();
         return this.continentMapper.continentEntityList2DTOList(entities);
     }
+
+    @Transactional
+    @Override
+    public ContinentDTO getAContinent(Long id) {
+        return this.continentMapper.continentEntity2DTO(this.continentRepository.getById(id));
+    }
 }

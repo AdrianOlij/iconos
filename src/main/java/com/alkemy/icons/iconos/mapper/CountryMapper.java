@@ -51,12 +51,12 @@ public class CountryMapper {
         return countryEntity;
     }
 
-    public List<CountryDTO> countryEntityList2DTOList(List<CountryEntity> entities, boolean loadIcons) {
-        List<CountryDTO> dtos = new ArrayList<>();
-        for (CountryEntity entity : entities) {
-            dtos.add(this.countryEntity2DTO(entity, loadIcons));
+    public List<CountryDTO> countryEntityList2DTOList(List<CountryEntity> countryEntities, boolean loadIcons) {
+        List<CountryDTO> countryDTOS = new ArrayList<>();
+        for (CountryEntity countryEntity : countryEntities) {
+            countryDTOS.add(this.countryEntity2DTO(countryEntity, loadIcons));
         }
-        return dtos;
+        return countryDTOS;
     }
 
     public List<CountryEntity> countryDTOList2EntityList(List<CountryDTO> dtos) {

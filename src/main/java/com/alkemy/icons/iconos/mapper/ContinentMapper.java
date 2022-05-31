@@ -10,20 +10,30 @@ import java.util.List;
 @Component
 public class ContinentMapper {
 
-    public ContinentEntity continentDTO2Entity(ContinentDTO dto){
-        ContinentEntity continentEntity = new ContinentEntity(); // Instancio el objeto al q quiero convertir el DTO
+    private final CountryMapper countryMapper;
 
-        continentEntity.setImage(dto.getImage()); /* cargo el atributo al Entity desde el atributo correlativo
-                                                     del DTO */
+    public ContinentMapper(CountryMapper countryMapper) {
+        this.countryMapper = countryMapper;
+    }
 
-        continentEntity.setDenomination(dto.getDenomination()); // idem anterior
+    public ContinentEntity continentDTO2Entity(ContinentDTO continentDTO){
+        // Instancio el objeto al q quiero convertir el DTO
+        ContinentEntity continentEntity = new ContinentEntity();
+        // cargo el atributo al Entity desde el atributo correlativo del DTO
+        continentEntity.setImage(continentDTO.getImage());
+        // idem anterior
+        continentEntity.setDenomination(continentDTO.getDenomination());
 
         return continentEntity;
     }
 
-    public ContinentDTO continentEntity2DTO(ContinentEntity entity){
-        return new ContinentDTO(entity.getId(),entity.getImage(),entity.getDenomination());
-        /* Inverso a continentDTO2Entity */
+    public ContinentDTO continentEntity2DTO(ContinentEntity continentEntity){
+        ContinentDTO continentDTO = new ContinentDTO();
+        continentDTO.setId(continentEntity.getId());
+        continentDTO.setImage(continentEntity.getImage());
+        continentDTO.setDenomination(continentEntity.getDenomination());
+        continentDTO.setCountries(this.countryMapper.countryEntityList2DTOList(continentEntity.getCountries(), true));
+        return continentDTO;
     }
 
     public List<ContinentDTO> continentEntityList2DTOList(List<ContinentEntity> entities){

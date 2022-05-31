@@ -21,13 +21,6 @@ public class IconController {
     }
 
 
-    //Devuelve Lista de iconos con todos los detalles
-    @GetMapping({"/detail"})
-    public ResponseEntity<List<IconDTO>> getAllIcons() {
-        List<IconDTO> icons = this.iconService.getAllIcons();
-        return ResponseEntity.ok().body(icons);
-    }
-
     //Devuelve lista de iconos con detalles acotados
     @GetMapping
     public ResponseEntity<List<IconBasicDTO>> getAllBasicIcons() {
@@ -38,15 +31,8 @@ public class IconController {
     // Devuelve un icono detallado
     @GetMapping("/{id}")
     public ResponseEntity<IconDTO> getAnIcon(@PathVariable Long id){
-        IconDTO getIconDTO = this.iconService.getAnIcon(id);
-        return ResponseEntity.ok().body(getIconDTO);
-    }
-
-    // Borra un icono por id
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> sDelete(@PathVariable Long id) {
-        this.iconService.delete(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        IconDTO getAnIcon = this.iconService.getAnIcon(id);
+        return ResponseEntity.ok().body(getAnIcon);
     }
 
     // Agrega un Icono
@@ -56,13 +42,21 @@ public class IconController {
         return ResponseEntity.status(HttpStatus.CREATED).body(saveIcon);
     }
 
-    //Sobreescribe un icono especifico
+    //Update de un icono
     @PutMapping("/{id}")
     public ResponseEntity<IconDTO> update(@PathVariable Long id, @RequestBody IconDTO iconDTO) {
         IconDTO editIcon = this.iconService.edit(id, iconDTO);
         return ResponseEntity.ok(editIcon);
     }
 
+    // Borra un icono
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> sDelete(@PathVariable Long id) {
+        this.iconService.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+/* Lo dejo grisado por si en algun momento se requiera agregar un pais a un icono
     //Agrega un pais a un icono
     @PostMapping("/{id}/country/{idCountry}")
     public ResponseEntity<Void> addCountry(@PathVariable Long id, @PathVariable Long idCountry){
@@ -75,5 +69,5 @@ public class IconController {
     public ResponseEntity<Void> removeCountry(@PathVariable Long id, @PathVariable Long idCountry){
         this.iconService.removeCountry(id, idCountry);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-    }
+    }*/
 }

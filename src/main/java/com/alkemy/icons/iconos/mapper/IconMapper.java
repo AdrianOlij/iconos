@@ -40,16 +40,16 @@ public class IconMapper {
     }
 
     // Entity a DTO
-    public IconDTO iconEntity2DTO(IconEntity entity, boolean loadCountries) {
+    public IconDTO iconEntity2DTO(IconEntity iconEntity, boolean loadCountries) {
         IconDTO iconDTO = new IconDTO();
-        iconDTO.setId(entity.getId());
-        iconDTO.setIconImage(entity.getImage());
-        iconDTO.setIconDenomination(entity.getDenomination());
-        iconDTO.setCreationDate(entity.getCreationDate().toString());
-        iconDTO.setHeight(entity.getHeight());
-        iconDTO.setHistory(entity.getHistory());
+        iconDTO.setId(iconEntity.getId());
+        iconDTO.setIconImage(iconEntity.getImage());
+        iconDTO.setIconDenomination(iconEntity.getDenomination());
+        iconDTO.setCreationDate(iconEntity.getCreationDate().toString());
+        iconDTO.setHeight(iconEntity.getHeight());
+        iconDTO.setHistory(iconEntity.getHistory());
         if (loadCountries) {
-            List<CountryDTO> countriesDTO = this.countryMapper.countryEntityList2DTOList(entity.getCountries(), false);
+            List<CountryDTO> countriesDTO = this.countryMapper.countryEntityList2DTOList(iconEntity.getCountries(), false);
             iconDTO.setCountries(countriesDTO);
         }
         return iconDTO;
@@ -72,12 +72,12 @@ public class IconMapper {
     }
 
     // Entity List a DTO List
-    public List<IconDTO> iconEntityList2DTOList(List<IconEntity> entities, boolean loadCountries) {
-        List<IconDTO> dtos = new ArrayList<>();
-        for (IconEntity entity : entities) {
-            dtos.add(this.iconEntity2DTO(entity, loadCountries));
+    public List<IconDTO> iconEntityList2DTOList(List<IconEntity> iconEntities, boolean loadCountries) {
+        List<IconDTO> iconDTOS = new ArrayList<>();
+        for (IconEntity iconEntity : iconEntities) {
+            iconDTOS.add(this.iconEntity2DTO(iconEntity, loadCountries));
         }
-        return dtos;
+        return iconDTOS;
     }
 
     // Entity a Basic DTO

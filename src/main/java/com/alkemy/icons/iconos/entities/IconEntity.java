@@ -39,6 +39,7 @@ public class IconEntity {
     @ManyToMany(mappedBy = "icons", cascade = CascadeType.ALL)
     private List<CountryEntity> countries = new ArrayList<>();
 
+/*  Grisado por si hay un escalado mas adelante
     public void addCountry(CountryEntity country){
         this.countries.add(country);
     }
@@ -46,5 +47,5 @@ public class IconEntity {
     public void removeCountry(CountryEntity country){
         this.countries.remove(country);
     }
-
+*/
 }

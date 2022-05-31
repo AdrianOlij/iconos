@@ -20,7 +20,10 @@ public interface IconService {
 
     IconDTO getAnIcon(Long id);
 
+/*  Grisado por si hay un escalado mas adelante
     void addCountry(Long id, Long idCountry);
 
+
     void removeCountry(Long id, Long idCountry);
+*/
 }

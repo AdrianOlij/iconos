@@ -78,12 +78,11 @@ public class IconServiceImpl implements IconService{
 
         return this.iconMapper.iconEntity2DTO(iconRepository.getById(id), true);
     }
-
+/*  Grisado por si hay escalado mas adelante
     @Transactional
     @Override
     public void addCountry(Long iconId, Long idCountry) {
         IconEntity iconEntity = this.iconRepository.getById(iconId);
-        iconEntity.getCountries().size();
         CountryEntity countryEntity = this.countryRepository.getById(idCountry);
         iconEntity.addCountry(countryEntity);
         this.iconRepository.save(iconEntity);
@@ -94,9 +93,9 @@ public class IconServiceImpl implements IconService{
     @Override
     public void removeCountry(Long iconId, Long idCountry) {
         IconEntity iconEntity = this.iconRepository.getById(iconId);
-        iconEntity.getCountries().size();
         CountryEntity countryEntity = this.countryRepository.getById(idCountry);
         iconEntity.removeCountry(countryEntity);
         this.iconRepository.save(iconEntity);
     }
+*/
 }
