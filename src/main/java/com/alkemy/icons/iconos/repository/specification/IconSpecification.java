@@ -24,7 +24,9 @@ public class IconSpecification {
                 );
             }
 
-
+            if(StringUtils.hasLength(filtersDTO.getDate())){
+                
+            }
         }
     }
 }
