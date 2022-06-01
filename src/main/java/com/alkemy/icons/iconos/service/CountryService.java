@@ -10,7 +10,7 @@ public interface CountryService {
 
     List<CountryBasicDTO> getAllBasicCountries();
 
-    List<CountryDTO> getAllCountries();
+/*    List<CountryDTO> getAllCountries();*/
 
     CountryDTO save(CountryDTO countryDTO);
 
@@ -21,4 +21,6 @@ public interface CountryService {
     void removeIcon(Long id, Long idIcon);
 
     void delete(Long id);
+
+    CountryDTO edit(Long id, CountryDTO countryDTO);
 }

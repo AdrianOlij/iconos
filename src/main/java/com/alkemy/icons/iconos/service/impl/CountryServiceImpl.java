@@ -2,8 +2,10 @@ package com.alkemy.icons.iconos.service.impl;
 
 import com.alkemy.icons.iconos.dto.CountryBasicDTO;
 import com.alkemy.icons.iconos.dto.CountryDTO;
+import com.alkemy.icons.iconos.dto.IconDTO;
 import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
+import com.alkemy.icons.iconos.exception.NotFound;
 import com.alkemy.icons.iconos.mapper.CountryMapper;
 import com.alkemy.icons.iconos.repository.CountryRepository;
 import com.alkemy.icons.iconos.repository.IconRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CountryServiceImpl implements CountryService {
@@ -34,12 +37,14 @@ public class CountryServiceImpl implements CountryService {
         return this.countryMapper.countryEntityList2BasicDTOList(entities);
     }
 
+/*
     @Transactional
     @Override
     public List<CountryDTO> getAllCountries() {
         List<CountryEntity> entities = this.countryRepository.findAll();
         return this.countryMapper.countryEntityList2DTOList(entities, false);
     }
+*/
 
     @Transactional
     @Override
@@ -47,6 +52,24 @@ public class CountryServiceImpl implements CountryService {
         CountryEntity entity = this.countryMapper.countryDTO2Entity(countryDTO, false);
         CountryEntity saveEntity = this.countryRepository.save(entity);
         return this.countryMapper.countryEntity2DTO(saveEntity, false);
+    }
+
+    @Transactional
+    @Override
+    public void delete(Long id) {
+        this.countryRepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public CountryDTO edit(Long id, CountryDTO countryDTO) {
+        Optional<CountryEntity> entity = countryRepository.findById(id);
+        if (!entity.isPresent()) {
+            throw new NotFound("No se encontro el Pais");
+        }
+        this.countryMapper.countryChangeValues(entity.get(), countryDTO);
+        CountryEntity countryEntitySaved = this.countryRepository.save(entity.get());
+        return this.countryMapper.countryEntity2DTO(countryEntitySaved, false);
     }
 
     @Transactional
@@ -73,9 +96,5 @@ public class CountryServiceImpl implements CountryService {
         this.countryRepository.save(countryEntity);
     }
 
-    @Transactional
-    @Override
-    public void delete(Long id) {
-        this.countryRepository.deleteById(id);
-    }
+
 }

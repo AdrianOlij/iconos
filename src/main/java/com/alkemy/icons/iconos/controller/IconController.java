@@ -4,11 +4,13 @@ import com.alkemy.icons.iconos.dto.IconBasicDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
 import com.alkemy.icons.iconos.repository.IconRepository;
 import com.alkemy.icons.iconos.service.IconService;
+import jdk.jfr.Frequency;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("icons")
@@ -46,7 +48,7 @@ public class IconController {
     @PutMapping("/{id}")
     public ResponseEntity<IconDTO> update(@PathVariable Long id, @RequestBody IconDTO iconDTO) {
         IconDTO editIcon = this.iconService.edit(id, iconDTO);
-        return ResponseEntity.ok(editIcon);
+        return ResponseEntity.ok().body(editIcon);
     }
 
     // Borra un icono
@@ -54,6 +56,17 @@ public class IconController {
     public ResponseEntity<Void> sDelete(@PathVariable Long id) {
         this.iconService.delete(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<IconDTO>> getIconDetailsByFilters(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String date,
+            @RequestParam(required = false) Set<Long> countries,
+            @RequestParam(required = false, defaultValue = "ASC") String order
+    ){
+        List<IconDTO> icons = this.iconService.getByFilters(name, date, countries, order);
+        return ResponseEntity.ok(icons);
     }
 
 /* Lo dejo grisado por si en algun momento se requiera agregar un pais a un icono
