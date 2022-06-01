@@ -9,4 +9,6 @@ public interface ContinentService {
     ContinentDTO save(ContinentDTO dto);
 
     List<ContinentDTO> getAllContinents();
+
+    ContinentDTO getAContinent(Long id);
 }

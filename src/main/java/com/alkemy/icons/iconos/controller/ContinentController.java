@@ -36,4 +36,10 @@ public class ContinentController {
         //201, confirmacion del request
         return ResponseEntity.status(HttpStatus.CREATED).body(saveContinent);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ContinentDTO> getAContinent(@PathVariable Long id){
+        ContinentDTO getAContinent = this.continentService.getAContinent(id);
+        return ResponseEntity.ok().body(getAContinent);
+    }
 }

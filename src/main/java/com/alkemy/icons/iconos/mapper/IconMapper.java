@@ -5,7 +5,6 @@ import com.alkemy.icons.iconos.dto.IconBasicDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
 import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
-import org.apache.tomcat.jni.Local;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
@@ -26,28 +25,31 @@ public class IconMapper {
     }
 
     // DTO a Entity
-    public IconEntity iconDTO2Entity(IconDTO dto) {
+    public IconEntity iconDTO2Entity(IconDTO iconDTO, boolean loadCountries) {
         IconEntity iconEntity = new IconEntity();
-        iconEntity.setImage(dto.getIconImage());
-        iconEntity.setDenomination(dto.getIconDenomination());
-        iconEntity.setCreationDate(this.string2LocalDate(dto.getCreationDate()));
-        iconEntity.setHeight(dto.getHeight());
-        iconEntity.setHistory(dto.getHistory());
-
+        iconEntity.setImage(iconDTO.getIconImage());
+        iconEntity.setDenomination(iconDTO.getIconDenomination());
+        iconEntity.setCreationDate(this.string2LocalDate(iconDTO.getCreationDate()));
+        iconEntity.setHeight(iconDTO.getHeight());
+        iconEntity.setHistory(iconDTO.getHistory());
+        if (loadCountries) {
+            List<CountryEntity> countriesEntity = this.countryMapper.countryDTOList2EntityList(iconDTO.getCountries());
+            iconEntity.setCountries(countriesEntity);
+        }
         return iconEntity;
     }
 
     // Entity a DTO
-    public IconDTO iconEntity2DTO(IconEntity entity, boolean loadCountries) {
+    public IconDTO iconEntity2DTO(IconEntity iconEntity, boolean loadCountries) {
         IconDTO iconDTO = new IconDTO();
-        iconDTO.setId(entity.getId());
-        iconDTO.setIconImage(entity.getImage());
-        iconDTO.setIconDenomination(entity.getDenomination());
-        iconDTO.setCreationDate(entity.getCreationDate().toString());
-        iconDTO.setHeight(entity.getHeight());
-        iconDTO.setHistory(entity.getHistory());
+        iconDTO.setId(iconEntity.getId());
+        iconDTO.setIconImage(iconEntity.getImage());
+        iconDTO.setIconDenomination(iconEntity.getDenomination());
+        iconDTO.setCreationDate(iconEntity.getCreationDate().toString());
+        iconDTO.setHeight(iconEntity.getHeight());
+        iconDTO.setHistory(iconEntity.getHistory());
         if (loadCountries) {
-            List<CountryDTO> countriesDTO = this.countryMapper.countryEntityList2DTOList(entity.getCountries(), false);
+            List<CountryDTO> countriesDTO = this.countryMapper.countryEntityList2DTOList(iconEntity.getCountries(), false);
             iconDTO.setCountries(countriesDTO);
         }
         return iconDTO;
@@ -61,21 +63,21 @@ public class IconMapper {
     }
 
     //DTO List a Entity List
-    public List<IconEntity> iconDTOList2EntityList(List<IconDTO> dtos, Boolean loadIcons) {
+    public List<IconEntity> iconDTOList2EntityList(List<IconDTO> dtos) {
         List<IconEntity> iconEntities = new ArrayList<>();
         for (IconDTO dto : dtos) {
-            iconEntities.add(this.iconDTO2Entity(dto));
+            iconEntities.add(this.iconDTO2Entity(dto, false));
         }
         return iconEntities;
     }
 
     // Entity List a DTO List
-    public List<IconDTO> iconEntityList2DTOList(List<IconEntity> entities, boolean loadCountries) {
-        List<IconDTO> dtos = new ArrayList<>();
-        for (IconEntity entity : entities) {
-            dtos.add(this.iconEntity2DTO(entity, loadCountries));
+    public List<IconDTO> iconEntityList2DTOList(List<IconEntity> iconEntities, boolean loadCountries) {
+        List<IconDTO> iconDTOS = new ArrayList<>();
+        for (IconEntity iconEntity : iconEntities) {
+            iconDTOS.add(this.iconEntity2DTO(iconEntity, loadCountries));
         }
-        return dtos;
+        return iconDTOS;
     }
 
     // Entity a Basic DTO
@@ -88,6 +90,15 @@ public class IconMapper {
         return entities.stream()
                 .map(iconEntity -> iconEntity2BasicDTO(iconEntity))
                 .collect(Collectors.toList());
+    }
+
+    public void iconChangeValues(IconEntity iconEntity, IconDTO iconDTO) {
+        iconEntity.setImage(iconDTO.getIconImage());
+        iconEntity.setDenomination(iconDTO.getIconDenomination());
+        iconEntity.setCreationDate(this.string2LocalDate(iconDTO.getCreationDate()));
+        iconEntity.setHeight(iconDTO.getHeight());
+        iconEntity.setHistory(iconDTO.getHistory());
+    }
 
         /*
     public List<IconBasicDTO> iconEntityList2BasicDTOList(List<IconEntity> entities){
@@ -99,6 +110,6 @@ public class IconMapper {
                 basicDto.setIconDenomination(entity.getDenomination());
                 dtos.add(basicDto);
             }
-            return dtos;*/
-    }
+            return dtos;
+    }*/
 }
