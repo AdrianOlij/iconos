@@ -2,6 +2,7 @@ package com.alkemy.icons.iconos.service.impl;
 
 import com.alkemy.icons.iconos.dto.IconBasicDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
+import com.alkemy.icons.iconos.dto.IconFiltersDTO;
 import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
 import com.alkemy.icons.iconos.exception.NotFound;
@@ -14,27 +15,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.Optional;
 
 @Service
-public class IconServiceImpl implements IconService{
+public class IconServiceImpl implements IconService {
 
     private final IconMapper iconMapper;
     private final IconRepository iconRepository;
-    private final CountryRepository countryRepository;
+    private final IconSpecification iconSpecification;
+    /*    private final CountryRepository countryRepository;*/
 
-    public IconServiceImpl(IconMapper iconMapper, IconRepository iconRepository, CountryRepository countryRepository) {
+    public IconServiceImpl(IconMapper iconMapper, IconRepository iconRepository, IconSpecification iconSpecification/*, CountryRepository countryRepository*/) {
         this.iconMapper = iconMapper;
         this.iconRepository = iconRepository;
-        this.countryRepository = countryRepository;
+        /*this.countryRepository = countryRepository;*/
     }
 
     @Transactional
     @Override
-    public IconDTO save(IconDTO dto) {
-        IconEntity entity = this.iconMapper.iconDTO2Entity(dto, false);
-        IconEntity entitySaved = this.iconRepository.save(entity); // Lo guardo
+    public IconDTO save(IconDTO iconDTO) {
+        IconEntity iconEntity = this.iconMapper.iconDTO2Entity(iconDTO, false);
+        IconEntity entitySaved = this.iconRepository.save(iconEntity); // Lo guardo
         return this.iconMapper.iconEntity2DTO(entitySaved, false);
     }
 
@@ -55,13 +58,12 @@ public class IconServiceImpl implements IconService{
     @Override
     public IconDTO edit(Long id, IconDTO iconDTO) {
         Optional<IconEntity> entity = iconRepository.findById(id);
-        if(!entity.isPresent()){
+        if (!entity.isPresent()) {
             throw new NotFound("No se encontro el Icono");
         }
-        IconEntity iconEntity = this.iconMapper.iconDTO2Entity(iconDTO, false);
-        IconEntity iconSaved = this.iconRepository.save(iconEntity);
-        return this.iconMapper.iconEntity2DTO(iconEntity, false);
-
+        this.iconMapper.iconChangeValues(entity.get(), iconDTO);
+        IconEntity iconEntitySaved = this.iconRepository.save(entity.get());
+        return this.iconMapper.iconEntity2DTO(iconEntitySaved, false);
     }
 
     @Transactional
@@ -78,6 +80,19 @@ public class IconServiceImpl implements IconService{
 
         return this.iconMapper.iconEntity2DTO(iconRepository.getById(id), true);
     }
+
+    @Transactional
+    @Override
+    public List<IconDTO> getByFilters(String name, String date, Set<Long> countries, String order) {
+        IconFiltersDTO filtersDTO = new IconFiltersDTO(name, date, countries, order);
+        List<IconEntity> iconEntities = this.iconRepository.findAll(this.iconSpecification.getByFilters(filtersDTO));
+        return null;
+    }
+
+
+
+
+
 /*  Grisado por si hay escalado mas adelante
     @Transactional
     @Override

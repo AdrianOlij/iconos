@@ -90,6 +90,15 @@ public class IconMapper {
         return entities.stream()
                 .map(iconEntity -> iconEntity2BasicDTO(iconEntity))
                 .collect(Collectors.toList());
+    }
+
+    public void iconChangeValues(IconEntity iconEntity, IconDTO iconDTO) {
+        iconEntity.setImage(iconDTO.getIconImage());
+        iconEntity.setDenomination(iconDTO.getIconDenomination());
+        iconEntity.setCreationDate(this.string2LocalDate(iconDTO.getCreationDate()));
+        iconEntity.setHeight(iconDTO.getHeight());
+        iconEntity.setHistory(iconDTO.getHistory());
+    }
 
         /*
     public List<IconBasicDTO> iconEntityList2BasicDTOList(List<IconEntity> entities){
@@ -101,6 +110,6 @@ public class IconMapper {
                 basicDto.setIconDenomination(entity.getDenomination());
                 dtos.add(basicDto);
             }
-            return dtos;*/
-    }
+            return dtos;
+    }*/
 }

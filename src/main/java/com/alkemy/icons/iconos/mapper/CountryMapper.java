@@ -5,7 +5,6 @@ import com.alkemy.icons.iconos.dto.CountryDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
 import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -77,5 +76,13 @@ public class CountryMapper {
         return entities.stream()
                 .map(countryEntity -> countryEntity2BasicDTO(countryEntity))
                 .collect(Collectors.toList());
+    }
+
+    public void countryChangeValues(CountryEntity countryEntity, CountryDTO countryDTO) {
+        countryEntity.setImage(countryDTO.getImage());
+        countryEntity.setDenomination(countryDTO.getDenomination());
+        countryEntity.setPopulation(countryDTO.getPopulation());
+        countryEntity.setArea(countryDTO.getArea());
+        countryEntity.setContinentId(countryDTO.getContinentId());
     }
 }

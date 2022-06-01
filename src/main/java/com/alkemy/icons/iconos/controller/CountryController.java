@@ -3,6 +3,7 @@ package com.alkemy.icons.iconos.controller;
 
 import com.alkemy.icons.iconos.dto.CountryBasicDTO;
 import com.alkemy.icons.iconos.dto.CountryDTO;
+import com.alkemy.icons.iconos.dto.IconDTO;
 import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.service.CountryService;
 import org.springframework.http.HttpStatus;
@@ -28,11 +29,13 @@ public class CountryController {
         return ResponseEntity.ok().body(countries);
     }
 
+/*
     @GetMapping({"/detail"})
     public ResponseEntity<List<CountryDTO>> getAllCountries(){
         List<CountryDTO> countryDTOS = this.countryService.getAllCountries();
         return ResponseEntity.ok().body(countryDTOS);
     }
+*/
 
     @GetMapping("/{id}")
     public ResponseEntity<CountryDTO> getACountry(@PathVariable Long id){
@@ -44,6 +47,12 @@ public class CountryController {
     public ResponseEntity<CountryDTO> save(@RequestBody CountryDTO country){
         CountryDTO saveCountry = this.countryService.save(country);
         return ResponseEntity.status(HttpStatus.CREATED).body(saveCountry);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CountryDTO> edit(@PathVariable Long id, @RequestBody CountryDTO countryDTO){
+        CountryDTO editCountry = this.countryService.edit(id, countryDTO);
+        return ResponseEntity.ok().body(editCountry);
     }
 
     @PostMapping("/{id}/icon/{idIcon}")
