@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -23,7 +24,7 @@ public class CountryController {
         this.countryService = countryService;
     }
 
-    @GetMapping
+    @GetMapping("/basic")
     public ResponseEntity<List<CountryBasicDTO>> getAllBasicCountries(){
         List<CountryBasicDTO> countries = this.countryService.getAllBasicCountries();
         return ResponseEntity.ok().body(countries);
@@ -73,4 +74,13 @@ public class CountryController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    @GetMapping
+    public ResponseEntity<List<CountryDTO>> getCountriesDetailsByFilters(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) Set<Long> continent,
+            @RequestParam(required = false, defaultValue = "ASC") String order
+    ){
+        List<CountryDTO> countries = this.countryService.getByFilters(name, continent, order);
+        return ResponseEntity.ok(countries);
+    }
 }

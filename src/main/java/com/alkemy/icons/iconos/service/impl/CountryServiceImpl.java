@@ -1,20 +1,20 @@
 package com.alkemy.icons.iconos.service.impl;
 
-import com.alkemy.icons.iconos.dto.CountryBasicDTO;
-import com.alkemy.icons.iconos.dto.CountryDTO;
-import com.alkemy.icons.iconos.dto.IconDTO;
+import com.alkemy.icons.iconos.dto.*;
 import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
 import com.alkemy.icons.iconos.exception.NotFound;
 import com.alkemy.icons.iconos.mapper.CountryMapper;
 import com.alkemy.icons.iconos.repository.CountryRepository;
 import com.alkemy.icons.iconos.repository.IconRepository;
+import com.alkemy.icons.iconos.repository.specification.CountrySpecification;
 import com.alkemy.icons.iconos.service.CountryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CountryServiceImpl implements CountryService {
@@ -22,12 +22,14 @@ public class CountryServiceImpl implements CountryService {
     private final CountryMapper countryMapper;
     private final CountryRepository countryRepository;
     private final IconRepository iconRepository;
+    private final CountrySpecification countrySpecification;
 
     public CountryServiceImpl(CountryMapper countryMapper, CountryRepository countryRepository,
-                              IconRepository iconRepository) {
+                              IconRepository iconRepository, CountrySpecification countrySpecification) {
         this.countryMapper = countryMapper;
         this.countryRepository = countryRepository;
         this.iconRepository = iconRepository;
+        this.countrySpecification = countrySpecification;
     }
 
     @Transactional
@@ -94,6 +96,17 @@ public class CountryServiceImpl implements CountryService {
         IconEntity iconEntity = this.iconRepository.getById(idIcon);
         countryEntity.removeIcon(iconEntity);
         this.countryRepository.save(countryEntity);
+    }
+
+    @Transactional
+    @Override
+    public List<CountryDTO> getByFilters(String name, Set<Long> continent, String order) {
+        CountryFiltersDTO countryFiltersDTO = new CountryFiltersDTO(name, continent, order);
+        List<CountryEntity> countryEntities = this.countryRepository.findAll(
+                this.countrySpecification.getByFilters(countryFiltersDTO));
+
+        List<CountryDTO> countryDTOS = this.countryMapper.countryEntityList2DTOList(countryEntities, true);
+        return countryDTOS;
     }
 
 
