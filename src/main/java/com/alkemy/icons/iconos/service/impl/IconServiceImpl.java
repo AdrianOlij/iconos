@@ -83,8 +83,8 @@ public class IconServiceImpl implements IconService {
     @Transactional
     @Override
     public List<IconDTO> getByFilters(String name, String date, Set<Long> countries, String order) {
-        IconFiltersDTO filtersDTO = new IconFiltersDTO(name, date, countries, order);
-        List<IconEntity> iconEntities = this.iconRepository.findAll(this.iconSpecification.getByFilters(filtersDTO));
+        IconFiltersDTO iconFiltersDTO = new IconFiltersDTO(name, date, countries, order);
+        List<IconEntity> iconEntities = this.iconRepository.findAll(this.iconSpecification.getByFilters(iconFiltersDTO));
         List<IconDTO> iconDTOS = this.iconMapper.iconEntityList2DTOList(iconEntities, true);
         return iconDTOS;
     }
