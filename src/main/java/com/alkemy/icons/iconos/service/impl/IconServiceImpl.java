@@ -3,13 +3,11 @@ package com.alkemy.icons.iconos.service.impl;
 import com.alkemy.icons.iconos.dto.IconBasicDTO;
 import com.alkemy.icons.iconos.dto.IconDTO;
 import com.alkemy.icons.iconos.dto.IconFiltersDTO;
-import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.entities.IconEntity;
 import com.alkemy.icons.iconos.exception.NotFound;
 import com.alkemy.icons.iconos.mapper.IconMapper;
-import com.alkemy.icons.iconos.repository.CountryRepository;
 import com.alkemy.icons.iconos.repository.IconRepository;
-import com.alkemy.icons.iconos.service.CountryService;
+import com.alkemy.icons.iconos.repository.specification.IconSpecification;
 import com.alkemy.icons.iconos.service.IconService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +28,7 @@ public class IconServiceImpl implements IconService {
     public IconServiceImpl(IconMapper iconMapper, IconRepository iconRepository, IconSpecification iconSpecification/*, CountryRepository countryRepository*/) {
         this.iconMapper = iconMapper;
         this.iconRepository = iconRepository;
+        this.iconSpecification = iconSpecification;
         /*this.countryRepository = countryRepository;*/
     }
 
@@ -86,7 +85,8 @@ public class IconServiceImpl implements IconService {
     public List<IconDTO> getByFilters(String name, String date, Set<Long> countries, String order) {
         IconFiltersDTO filtersDTO = new IconFiltersDTO(name, date, countries, order);
         List<IconEntity> iconEntities = this.iconRepository.findAll(this.iconSpecification.getByFilters(filtersDTO));
-        return null;
+        List<IconDTO> iconDTOS = this.iconMapper.iconEntityList2DTOList(iconEntities, true);
+        return iconDTOS;
     }
 
 
