@@ -3,8 +3,6 @@ package com.alkemy.icons.iconos.controller;
 
 import com.alkemy.icons.iconos.dto.CountryBasicDTO;
 import com.alkemy.icons.iconos.dto.CountryDTO;
-import com.alkemy.icons.iconos.dto.IconDTO;
-import com.alkemy.icons.iconos.entities.CountryEntity;
 import com.alkemy.icons.iconos.service.CountryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
