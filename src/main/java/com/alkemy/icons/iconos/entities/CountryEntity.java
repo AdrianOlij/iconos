@@ -3,6 +3,8 @@ package com.alkemy.icons.iconos.entities;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE country SET deleted = trie WHERE id=?")
+@Where(clause = "deleted=false")
 @Entity
 @Table(name = "country")
 public class CountryEntity {
@@ -22,9 +26,8 @@ public class CountryEntity {
 
     @Column(name = "amount_population")
     private Long population;
-
     private Double area; //metros cuadrados
-
+    private boolean deleted = Boolean.FALSE;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)              //
     @JoinColumn(name = "continent_id", insertable = false, updatable = false)  // Busqueda de información
@@ -43,4 +46,14 @@ public class CountryEntity {
             joinColumns = @JoinColumn(name = "country_id"),
             inverseJoinColumns = @JoinColumn(name = "icon_id"))
     private List<IconEntity> icons = new ArrayList<>();
+
+
+
+    public void addIcon(IconEntity iconEntity) {
+        this.icons.add(iconEntity);
+    }
+
+    public void removeIcon(IconEntity iconEntity){
+        this.icons.remove(iconEntity);
+    }
 }
