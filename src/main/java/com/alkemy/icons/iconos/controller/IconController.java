@@ -24,7 +24,7 @@ public class IconController {
 
 
     //Devuelve lista de iconos con detalles acotados
-    @GetMapping
+    @GetMapping("/basic")
     public ResponseEntity<List<IconBasicDTO>> getAllBasicIcons() {
         List<IconBasicDTO> icons = this.iconService.getAllBasicIcons();
         return ResponseEntity.ok().body(icons);
