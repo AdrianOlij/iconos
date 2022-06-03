@@ -23,7 +23,7 @@ public class IconServiceImpl implements IconService {
     private final IconMapper iconMapper;
     private final IconRepository iconRepository;
     private final IconSpecification iconSpecification;
-    /*    private final CountryRepository countryRepository;*/
+    //private final CountryRepository countryRepository;
 
     public IconServiceImpl(IconMapper iconMapper, IconRepository iconRepository, IconSpecification iconSpecification/*, CountryRepository countryRepository*/) {
         this.iconMapper = iconMapper;
@@ -43,6 +43,10 @@ public class IconServiceImpl implements IconService {
     @Transactional
     @Override
     public void delete(Long id) {
+        Optional<IconEntity> entity = iconRepository.findById(id);
+        if (!entity.isPresent()) {
+            throw new NotFound("No se encontro el ID del Icono");
+        }
         this.iconRepository.deleteById(id);
     }
 
@@ -58,7 +62,7 @@ public class IconServiceImpl implements IconService {
     public IconDTO edit(Long id, IconDTO iconDTO) {
         Optional<IconEntity> entity = iconRepository.findById(id);
         if (!entity.isPresent()) {
-            throw new NotFound("No se encontro el Icono");
+            throw new NotFound("No se encontro el ID del Icono");
         }
         this.iconMapper.iconChangeValues(entity.get(), iconDTO);
         IconEntity iconEntitySaved = this.iconRepository.save(entity.get());
@@ -76,8 +80,12 @@ public class IconServiceImpl implements IconService {
     @Transactional
     @Override
     public IconDTO getAnIcon(Long id) {
-
-        return this.iconMapper.iconEntity2DTO(iconRepository.getById(id), true);
+        Optional<IconEntity> iconEntity = this.iconRepository.findById(id);
+        if (!iconEntity.isPresent()){
+            throw new NotFound("No se encontro el ID del icono");
+        }
+        IconDTO iconDTO = this.iconMapper.iconEntity2DTO(iconEntity.get(), true);
+        return iconDTO;
     }
 
     @Transactional
@@ -88,10 +96,6 @@ public class IconServiceImpl implements IconService {
         List<IconDTO> iconDTOS = this.iconMapper.iconEntityList2DTOList(iconEntities, true);
         return iconDTOS;
     }
-
-
-
-
 
 /*  Grisado por si hay escalado mas adelante
     @Transactional
